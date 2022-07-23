@@ -14,3 +14,5 @@ git push --set-upstream test-repo master
 git remote add origin <url>
 git remote -v
 git push -u origin master
+git commit -am "recent commit"
+
