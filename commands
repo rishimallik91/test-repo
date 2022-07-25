@@ -30,3 +30,5 @@ git merge [branch name]	Merge a branch into the active branch
 git merge [source branch] [target branch]	Merge a branch into a target branch
 git stash	Stash changes in a dirty working directory
 git stash clear	Remove all stashed entries
+git branch -d branch name -- to delete a branch
+git checkout -b new beanch name -- to create and switch to a branch in a single step
