@@ -11,5 +11,5 @@ wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bi
 tar -xvf apache-maven-3.8.6-bin.tar.gz
 mv apache-maven-3.8.6 maven
 Add maven home path --- go to ~/.bashrc --- export PATH=/opt/maven/bin:$PATH --- save it and run source ~/.bashrc
-Check maven version by hitting maven -version
+Check maven version by hitting mvn -version
 Hit mvn we need to get build failure message
