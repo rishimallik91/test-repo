@@ -32,3 +32,5 @@ git stash	Stash changes in a dirty working directory
 git stash clear	Remove all stashed entries
 git branch -d branch name -- to delete a branch
 git checkout -b new beanch name -- to create and switch to a branch in a single step
+git clone -b <branch name> https://github.com/rishimallik91/test-repo.git   ---- to clone specific branch in a repository
+
