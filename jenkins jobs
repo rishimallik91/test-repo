@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('motor to overhead tank') { 
+            steps {
+                echo 'Pumping water from motor to overhead tank'
+            }
+		}	
+	    stage('overhead tank to house') {
+            steps {
+                echo 'Pumping water from overhead tank to house'
+            }
+        }
+   
+    }
+    
+ } 
