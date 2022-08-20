@@ -1,3 +1,11 @@
+<<<----- docker ce installation ----->>>
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/do                                                                                        cker-ce.repo
+dnf list docker-ce
+dnf install docker-ce --nobest -y
+systemctl start docker
+systemctl enable docker
+docker --version
+<<<----- docker commands ----->>>
 docker ps ---- to list out containers that are running
 docker ps -a --- to list out all the containers
 docker run -it <image name>  --- to run a docker image
