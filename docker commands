@@ -1,5 +1,5 @@
 <<<----- docker ce installation ----->>>
-dnf config-manager --add-repo=https://download.docker.com/linux/centos/do                                                                                        cker-ce.repo
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 dnf list docker-ce
 dnf install docker-ce --nobest -y
 systemctl start docker
