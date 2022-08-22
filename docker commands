@@ -16,3 +16,13 @@ docker history <image id> --- to find out the history of that image
 docker rmi <image name> -- to remove image ( that container should be in stop state )
 docker rm <container id> -- to remove container
 docker rm -f < container id> -- to remove container forcefully
+<<<<< ---- DOCKER FILE ---- >>>>>
+FROM roboxes/rhel8
+
+MAINTAINER Rishi rishimallik91@gmail.com
+
+RUN yum install wget -y
+<<<<< ---- DOCKER FILE ---- >>>>>
+
+
+
