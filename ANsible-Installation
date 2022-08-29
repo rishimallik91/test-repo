@@ -1,5 +1,5 @@
-yum install pyth0n2
-pip2 install ansible
+yum install pyth0n36
+pip3 install ansible
 ansible --version ( You will be seeing config file as none )
 cd /etc/
 mkdir ansible
