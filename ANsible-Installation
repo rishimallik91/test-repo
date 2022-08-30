@@ -1,4 +1,5 @@
 Launch an Amazon Linux Machine
+yum update -y 
 yum install python
 yum install pip -y
 pip install ansible
