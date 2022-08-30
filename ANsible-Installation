@@ -7,7 +7,7 @@ ansible --version ( You will be seeing config file as none )
 cd /etc/
 mkdir ansible
 cd ansible
-mkdir roles and touch ansible.cfg and touch roles
+mkdir roles and touch ansible.cfg and touch hosts
 Check ansible --version ( Now you will get the default directory structure )
 Create user ansadmin and give password
 GIve root priveleges to ansadmin by going to visudo
