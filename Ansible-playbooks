@@ -1,0 +1,9 @@
+---
+ - name: To run the shell script in the server
+   hosts: host
+   tasks:
+   - name: Execute the below commands in the Node-1 server
+     shell: |
+       cd /opt/
+       cat file1
+       
