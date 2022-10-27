@@ -1,0 +1,142 @@
+In this module we will see a sample project of how AWS continuous delivery pipeline works by using AWS Elastic beanstalk.
+
+there are 5 stages
+
+STAGE 1 - setting up git repository: 
+In this stage we open our git hub account, on the same tab we open "aws-elastic-beanstalk-express-js-sample" (sample git reposotory for the project taken from google browser source).
+as we need to fork the repository of sample project in to our account, we need to click on the "fork icon" that we see on the right side top of the screen.
+then we can see the copy of the repo in our account, as we have to check our git hub repositories if the copy is created or not.
+next we need to copy the code as wee see the "code"on the right side after "add file" option.
+under clone we need to copy the "HTTPS link".
+next we need to open our linux machine (git bash or putty) using instance, in the linux we need to initiate git and clone the repository to the linux machine.
+"git clone https://github.com/YOUR-USERNAME/aws-elastic-beanstalk-express-js-sample" (YOUR-USERNAME should be your github account name im giving the command for sample)
+next in the new created folder we see a file names "app.js". there we see a sample code in the file.
+copy that code and paste in any code editor (ex:Notepad++) and in the fifth line replace the "hello world" with any words you wish.
+paste the code in the linux machine (app.js) and save the file. 
+commit the changes by "git add app.js" and "git commit -m "committed message"
+finally "git push" the changes to the remote repository.
+then check the changes under "aws-elastic-beanstalk-express-js-sample" there we can see the contents of the file including your changes should be displayed.
+if not we need to check this step again.
+
+
+STAGE 2 - deploying in AWS beanstalk:
+open a new browser tab you use, in that open "AWS elastic beanstalk console" type this and hit enter. 
+for the above step we need to sign in the aws console, then we go in the aws elastic beanstalk console page.
+click on the "create application" button which is in orange colour.
+in the text box of "application name" type "DevOpsGettingStarted".
+in the platform dropdown select "Node.js" this will automatically fills the "platform branch" and "platform version" and further go down to the screen.
+visually check that the "sample application" option in the "application code" is already selected or not. if not we need to select sample application.
+click the "create application" button at the bottom of the page. and wait for the screen to show a window of display status message of our environment.
+after a few minutes you will see a large green tickmark with text on the screen as it tells about the check and creation is successful.
+now you have created an aws elastic beanstalk application and successfully deployed in an environment.
+
+
+STAGE 3 - creating build project:
+open a new browser tab, in that open "AWS CodeBuild Console".
+there you find a orange button "create project" click on that.
+in the project name field give "Build-DevOpsGettingStarted".
+in the "source provider" drop down menu select "Git Hub"
+visually check the  "Connect using OAuth" is selected, if not we need to select  "Connect using OAuth"
+click the "connect to the Git Hub" button, a new browser tab opens asking you to give asw code build access to github repo.
+click the green button "Authorize aws-codesuite" and give your github password.
+click the "confirm" button in orane colour.
+next automatically redirected to the previous page, in repositories select "" Repository in my GitHub account".
+in the bottom search feild of github repoaitories, search for "aws-elastic-beanstalk-express-js-sample" you see the sample repository you forked in STAGE -1, select that.
+check the "Managed image" is selected.
+from the "operating system" drop down menu select"Amazon Linux 2" 
+from the "run time" drop down select "standard" 
+select "aws/codebuild/amazonlinux2-x86_64-standard:3.0" from the "Image" dropdown menu.
+in the image version select "Always use the latest image for this runtime version".
+from "environment type" select "linux".
+visually confirm that "new service role is selected" , if not select that.
+select "Insert build commands."
+Click on "Switch to editor."
+Replace the Buildspec in the editor with the code below:
+version: 0.2
+phases:
+    build:
+        commands:
+            - npm i --save
+artifacts:
+    files:
+        - '**/*'
+click on "create build project" in orange colour. and you see a dash board of your project.
+click on "start build" in orange button, a page opens with the configurations of build process.
+confirm that the references are correct and given repository.
+again hit "start build", Wait for the build to complete. As you are waiting you should see a green bar at the top of the page with the message "Build started," the progress for your build under 'Build log," and, after a couple minutes, a green check mark and a "Succeeded" message confirming the build worked.
+
+
+STAGE - 4 create pipeline: 
+in a new browser tab open "AWS CodePipeline Console".
+Click the orange "Create pipeline" button. A new screen will open up so you can set up the pipeline.
+In the "Pipeline name" field type "Pipeline-DevOpsGettingStarted."
+Visually confirm that "New service role" is selected.
+Click the orange "Next" button.
+Select "GitHub" from the "Source provider" dropdown menu.
+Click the "Connect to GitHub" button. A new browser tab will open asking you to give AWS CodePipeline access to your GitHub repo.
+Click the "Authorize aws-codesuite" green button. Next, you will see a green box with the message "You have successfully configured the action with the provider."
+From the "Repository" dropdown select the repo you created in STAGE - 1.
+Select "main" from the "branch" dropdown menu.
+Visually confirm that "GitHub webhooks" is selected.
+Click the "Next" button in orange colour.
+From the "Build provider" select "AWS CodeBuild."
+Under "Region" confirm that the "US West (Oregon)" region is selected.
+Select "Build-DevOpsGettingStarted" under "Project name."
+Click the "Next" button in orange colour.
+Select "AWS ElasticBeanstalk" from the "Deploy provider" dropdown menu.
+Under "Region" confirm that the "US West (Oregon)" region is selected.
+Click the field under "Application name" and confirm you can see the app "DevOpsGettingStarted" created in STAGE - 2.
+Select "DevOpsGettingStarted-env" from the "Environment name" text box.
+Click the "Next" button in orange colourClick the orange "Create pipeline" button.
+Click the "Create pipeline" button in orange colour.
+While watching the Pipeline Execution you will see a page with a green bar at the top. This page shows all the steps defined for the pipeline and, after a few minutes, each will change from blue to green.
+Once the "Deploy" stage has switched to green and it says "Succeeded," click on "AWS Elastic Beanstalk." A new tab listing your AWS Elastic Beanstalk environments will open.
+Click the URL on the "Devopsgettingstarted-env" row. You should see a web page with a white background and the text you included in your GitHub commit in STAGE - 1.
+
+
+STAGE - 5 finalizing the pipeline and test
+Open the AWS CodePipeline Console in another new tab.
+You should see the pipeline we created in STAGE - 4, which was called "Pipeline-DevOpsGettingStarted." Click on this pipeline.
+Click the "Edit" button near the top of the page.
+Click the "Add stage" button between the "Build" and "Deploy" stages.
+In the "Stage name" field type "Review."
+Click the "Add stage" button in orange colour.
+In the "Review" stage, click the "Add action group" button.
+Under "Action name" type "Manual_Review."
+From the "Action provider" select "Manual approval."
+Confirm that the optional fields have been left blank.
+Click the "Done" button in orange colour.
+Click the "Save" button in orange colour  at the top of the page.
+Click the "Save" button in orange colour to confirm the changes. You will now see your pipeline with four stages: "Source," "Build," "Review," and "Deploy."
+In Notepad++ code editor open the "app.js" file from STAGE - 1.
+Change the message in Line 5 as you changed in STAGE - 1, now you need to change again.
+Save the file.
+Open your git in linux, same process like in STAGE - 1.
+Navigate to the folder created in STAGE - 1.
+Commit the changes in the file like the STAGE - 1, and commit the changes by using these commands:
+git add app.js
+git commit -m "Full pipeline test"
+and push the changes to the local repository by using "git push" command.
+and  as of now the pipeline creation is completed, now we need to manually monitor and approve the pipeline, for that  we need to :
+Navigate to the AWS CodePipeline Console.
+Click on the pipeline named "Pipeline-DevOpsGettingStarted." You should see the "Source" and "Build" stages switch from blue to green.
+When the "Review" stage switches to blue, click on the white "Review" button.
+Write an approval comment in the "Comments" text box.
+Click the "Approve" button in orange colour.
+Wait for the "Review" and "Deploy" stages to switch to green.
+Click on the AWS Elastic Beanstalk link in the "Deploy" stage. A new tab listing your Elastic Beanstalk environments will open.
+Click the URL on the "Devopsgettingstarted-env" row. You should see a web page with a white background and the text you had in your most recent GitHub commit.
+now finally we created a successful AWS Elastic Beanstalk pipeline.
+
+if you find any doubts or errors in any stages you can follow up these steps and clarify.
+
+hope you unserstand this and complete it successfully.
+
+Have a  good day :-)
+
+
+
+
+
+
+
